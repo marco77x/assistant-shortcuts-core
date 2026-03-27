@@ -4,6 +4,13 @@ A minimal local server for Apple Shortcuts (`Assistant Start Core` + `Assistant 
 
 This is the **core mode** (no OpenClaw, no Ollama required).
 
+## Choose Your Edition
+
+- Core (this repository): simple and minimal local shortcut server
+- Advanced OpenClaw: https://github.com/marco77x/assistant-shortcut-advanced-openclaw
+
+Use Core if you want a lightweight setup. Use Advanced if you want OpenClaw operations, richer automations, and optional local/API LLM modes.
+
 ## What It Does
 
 - Receives voice text from Shortcuts (`POST /shortcut`)
