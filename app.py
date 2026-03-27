@@ -10,7 +10,6 @@ load_dotenv()
 HOST = os.getenv("HOST", "0.0.0.0")
 PORT = int(os.getenv("PORT", "8000"))
 ASSISTANT_TOKEN = os.getenv("ASSISTANT_TOKEN", "").strip()
-LANGUAGE = os.getenv("LANGUAGE", "it").strip().lower()
 
 app = FastAPI(title="Assistant Core Server", version="1.0.0")
 
@@ -18,10 +17,6 @@ app = FastAPI(title="Assistant Core Server", version="1.0.0")
 class ShortcutRequest(BaseModel):
     text: str
     sender_id: Optional[str] = None
-
-
-def _reply(it: str, en: str) -> str:
-    return it if LANGUAGE == "it" else en
 
 
 def _payload(action: str, message: str) -> dict:
@@ -37,26 +32,26 @@ def _authorize(token: Optional[str]) -> None:
 def route_command(text: str) -> dict:
     t = text.lower().strip()
 
-    wants_studio_light = "studio" in t and any(k in t for k in {"luce", "light", "lamp"})
-    turn_on_words = {"accendi", "attiva", "turn on", "switch on"}
-    turn_off_words = {"spegni", "disattiva", "turn off", "switch off"}
+    wants_studio_light = "studio" in t and any(k in t for k in {"light", "lamp"})
+    turn_on_words = {"turn on", "switch on"}
+    turn_off_words = {"turn off", "switch off"}
 
     if wants_studio_light and any(k in t for k in turn_on_words):
         return _payload(
             "home.light_studio.on",
-            _reply("Accendo la luce in studio.", "Turning on the studio light."),
+            "Turning on the studio light.",
         )
 
     if wants_studio_light and any(k in t for k in turn_off_words):
         return _payload(
             "home.light_studio.off",
-            _reply("Spengo la luce in studio.", "Turning off the studio light."),
+            "Turning off the studio light.",
         )
 
-    if t in {"stop", "ferma", "esci", "fine", "end", "exit"}:
-        return _payload("shortcut_stop", _reply("Sessione terminata.", "Session ended."))
+    if t in {"stop", "end", "exit"}:
+        return _payload("shortcut_stop", "Session ended.")
 
-    return _payload("qa.fallback", _reply(f"Hai detto: {text}", f"You said: {text}"))
+    return _payload("qa.fallback", f"You said: {text}")
 
 
 @app.get("/health")
