@@ -1,4 +1,9 @@
-# Assistant Core Server
+# 🚀 Assistant Core Server
+
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/marco77x/assistant-shortcuts-core/blob/main/LICENSE)
+[![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue.svg)](https://www.python.org/downloads/)
+[![Platform](https://img.shields.io/badge/platform-macOS%20%2B%20iOS-black.svg)](#)
+[![Edition](https://img.shields.io/badge/edition-core-2ea44f.svg)](#)
 
 A minimal local server for Apple Shortcuts (`Assistant Start Core` + `Assistant Loop Core`).
 
